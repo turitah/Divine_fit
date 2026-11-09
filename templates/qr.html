@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}QR Code | Divine Fit{% endblock %}
+
+{% block head_extra %}
+    <meta name="description" content="Scan the Divine Fit QR code to open the online dress catalogue on your phone.">
+{% endblock %}
+
+{% block content %}
+
+<section class="qr-page">
+    <div class="container">
+
+        <div class="qr-heading">
+            <span class="section-label">SHARE THE STYLE</span>
+            <h1>Scan to Shop</h1>
+            <p>
+                Print this code on business cards, flyers, shopping bags or
+                dress tags. One scan opens the Divine Fit catalogue.
+            </p>
+        </div>
+
+        <div class="qr-grid">
+
+            <div class="qr-card">
+
+                {% if error %}
+
+                    <div class="qr-error">
+                        <span>♡</span>
+                        <p>{{ error }}</p>
+                    </div>
+
+                {% else %}
+
+                    <div class="qr-image">
+                        {{ qr_svg|safe }}
+                    </div>
+
+                    <div class="qr-brand">
+                        <img class="brand-mark" src="{{ url_for('static', filename='images/logo-mark.png') }}" alt="Divine Fit monogram" width="40" height="40">
+                        <span>
+                            <strong>Divine Fit</strong>
+                            <small>ELEGANCE. CONFIDENCE. YOU.</small>
+                        </span>
+                    </div>
+
+                    <p class="qr-target">{{ target }}</p>
+
+                    <div class="qr-actions">
+                        <a href="{{ url_for('qr_download') }}" class="primary-button">
+                            Download QR
+                        </a>
+                        <button type="button" class="outline-button" onclick="window.print()">
+                            Print
+                        </button>
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+            <div class="qr-info">
+
+                <span class="section-label">HOW TO USE IT</span>
+                <h2>Put your catalogue everywhere.</h2>
+
+                <div class="qr-steps">
+
+                    <div class="qr-step">
+                        <span>01</span>
+                        <div>
+                            <strong>Download the code</strong>
+                            <p>Save the QR image to your phone or computer.</p>
+                        </div>
+                    </div>
+
+                    <div class="qr-step">
+                        <span>02</span>
+                        <div>
+                            <strong>Add it to your materials</strong>
+                            <p>
+                                Place it on business cards, posters, flyers,
+                                shopping bags, dress tags or social posts.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="qr-step">
+                        <span>03</span>
+                        <div>
+                            <strong>Customers scan and shop</strong>
+                            <p>
+                                Their phone opens the catalogue instantly —
+                                no app or account needed.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

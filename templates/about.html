@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}About Us | Divine Fit{% endblock %}
+
+{% block head_extra %}
+    <meta name="description" content="Discover the story behind Divine Fit, an elegant fashion boutique for university and college women in {{ location }}.">
+{% endblock %}
+
+{% block content %}
+
+<section class="page-banner about-banner">
+    <div class="container" data-reveal>
+        <span class="section-label">OUR STORY</span>
+        <h1>More Than Fashion.<br><em>It's Your Expression.</em></h1>
+        <p>Elegance. Confidence. You.</p>
+    </div>
+</section>
+
+<section class="section about-page-section">
+    <div class="container about-page-grid">
+
+        <figure class="about-page-photo" data-reveal>
+            <img
+                src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=1200&q=85"
+                alt="Editorial fashion moment celebrating personal style"
+                width="1000"
+                height="1250"
+            >
+            <figcaption class="about-photo-card">
+                <span class="about-photo-script">Beautifully you.</span>
+                <p>A style for every moment.</p>
+            </figcaption>
+        </figure>
+
+        <div class="about-page-copy" data-reveal>
+            <span class="section-label">WELCOME TO DIVINE FIT</span>
+            <h2>Fashion That Feels <em>Like You.</em></h2>
+
+            <p>
+                At Divine Fit, we believe beauty is found in confidence,
+                individuality and the little details that make you unique.
+                Our collections are thoughtfully presented for the modern
+                woman who loves to express herself through fashion.
+            </p>
+
+            <p>
+                Divine Fit is about celebrating personal style, embracing
+                confidence and making elegance part of everyday life. We bring
+                you beautiful fashion choices for campus, special occasions
+                and every moment in between.
+            </p>
+
+            <div class="about-signature">
+                <strong>Proudly based in {{ location }}</strong>
+                <span>Where beauty meets style.</span>
+            </div>
+
+            <a href="{{ url_for('shop') }}" class="primary-button">
+                Explore Our Collection <span>→</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="section values-section">
+    <div class="container">
+
+        <div class="center-heading" data-reveal>
+            <span class="section-label">THE DIVINE DIFFERENCE</span>
+            <h2>Elegance Made Effortless.</h2>
+            <p>Everything we do is guided by beauty, elegance and confidence.</p>
+        </div>
+
+        <div class="feature-grid">
+            <article class="feature-card" data-reveal>
+                <span class="feature-index">01</span>
+                <h3>Beauty</h3>
+                <p>
+                    Thoughtful details and timeless style that make every look
+                    feel considered and beautiful.
+                </p>
+            </article>
+
+            <article class="feature-card" data-reveal>
+                <span class="feature-index">02</span>
+                <h3>Elegance</h3>
+                <p>
+                    Refined silhouettes and graceful pieces selected for
+                    campus days, celebrations and everything in between.
+                </p>
+            </article>
+
+            <article class="feature-card" data-reveal>
+                <span class="feature-index">03</span>
+                <h3>Confidence</h3>
+                <p>
+                    Fashion that helps you feel beautiful, look confident and
+                    express the woman you are becoming.
+                </p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="contact-cta about-cta">
+    <div class="container contact-content" data-reveal>
+        <span class="section-label">A STYLE FOR EVERY MOMENT</span>
+        <h2>Feel Beautiful. Look Confident.</h2>
+        <p>
+            Discover beautiful styles that celebrate your confidence,
+            personality and individuality.
+        </p>
+
+        <div class="cta-buttons">
+            <a href="{{ url_for('shop') }}" class="primary-button">
+                Explore Our Collection <span>→</span>
+            </a>
+            <a href="{{ url_for('contact') }}" class="outline-button">
+                Let's Stay Connected
+            </a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

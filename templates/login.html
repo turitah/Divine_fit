@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Seller Sign In | Divine Fit{% endblock %}
+
+{% block head_extra %}
+    <meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
+{% block content %}
+
+<section class="login-page">
+    <div class="container">
+
+        <div class="login-card">
+
+            <span class="login-lock" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="1.7" stroke-linecap="round"
+                     stroke-linejoin="round">
+                    <rect x="4" y="10" width="16" height="10" rx="2"></rect>
+                    <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+                </svg>
+            </span>
+
+            <span class="section-label">PRIVATE ACCESS</span>
+
+            <h1>Seller Sign In</h1>
+
+            <p>
+                Enter the seller password to manage the Divine Fit catalogue.
+            </p>
+
+            <form
+                method="POST"
+                action="{{ url_for('login') }}"
+                class="login-form"
+            >
+
+                <input type="hidden" name="next" value="{{ next_url }}">
+
+                <label for="password">Password</label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter password"
+                    autocomplete="current-password"
+                    required
+                    autofocus
+                >
+
+                <button type="submit" class="upload-dress-button">
+                    Sign In
+                </button>
+
+            </form>
+
+            <p class="login-qr-note">
+                <strong>Already have your seller QR code?</strong>
+                Scan it with your phone camera to open the dashboard instantly.
+                You can create or replace it from the dashboard.
+            </p>
+
+            <a href="{{ url_for('home') }}" class="login-back">
+                ← Back to the shop
+            </a>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

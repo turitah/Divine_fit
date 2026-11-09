@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}Contact | Divine Fit{% endblock %}
+
+{% block head_extra %}
+    <meta name="description" content="Contact Divine Fit on WhatsApp or by phone to order elegant dresses and arrange campus delivery or pickup in {{ location }}.">
+{% endblock %}
+
+{% block content %}
+
+<section class="page-banner contact-banner">
+    <div class="container" data-reveal>
+        <span class="section-label">CONTACT DIVINE FIT</span>
+        <h1>Let's Stay Connected.</h1>
+        <p>
+            Found something you love? We would be delighted to hear from you.
+            Reach out to us and let's help you find your perfect style.
+        </p>
+    </div>
+</section>
+
+<section class="section contact-page-section">
+    <div class="container contact-page-grid">
+
+        <div class="contact-page-copy" data-reveal>
+            <span class="section-label">WE'RE HERE FOR YOU</span>
+            <h2>Your Style. <em>Your Story.</em></h2>
+
+            <p>
+                Shopping with Divine Fit is personal. Message us on WhatsApp or
+                call either of our lines, and we will help you choose your
+                dress, confirm availability and arrange delivery or pickup.
+            </p>
+
+            <div class="contact-methods">
+                {% for contact in contacts %}
+                    <div class="contact-method">
+                        <span class="contact-method-index">0{{ loop.index }}</span>
+                        <div>
+                            <strong>{{ contact['display'] }}</strong>
+                            <span>WhatsApp &amp; Calls</span>
+                        </div>
+                        <div class="contact-method-links">
+                            <a href="https://wa.me/{{ contact['wa'] }}" target="_blank" rel="noopener">WhatsApp →</a>
+                            <a href="tel:{{ contact['tel'] }}">Call →</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="contact-location">
+                <span class="section-label">FIND US</span>
+                <strong>{{ location }}</strong>
+                <p>Campus delivery and pickup arranged after you choose your dress.</p>
+            </div>
+        </div>
+
+        <div class="contact-page-visual" data-reveal>
+            <img
+                src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=85"
+                alt="Elegant fashion editorial in warm neutral tones"
+                width="1000"
+                height="1300"
+            >
+            <div class="contact-visual-card">
+                <span>Wear Your Confidence.</span>
+                <strong>Let's find your perfect fit.</strong>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="how-section contact-how-section">
+    <div class="container">
+
+        <div class="center-heading" data-reveal>
+            <span class="section-label">SIMPLE &amp; EASY</span>
+            <h2>How to Order</h2>
+            <p>Find your dress, choose your size and contact us.</p>
+        </div>
+
+        <div class="steps">
+            <div class="step" data-reveal>
+                <span>01</span>
+                <div class="step-icon">⌕</div>
+                <h3>Browse</h3>
+                <p>Explore the latest Divine Fit collection.</p>
+            </div>
+
+            <div class="step" data-reveal>
+                <span>02</span>
+                <div class="step-icon">♡</div>
+                <h3>Choose Your Size</h3>
+                <p>Pick the perfect fit for you.</p>
+            </div>
+
+            <div class="step" data-reveal>
+                <span>03</span>
+                <div class="step-icon">☏</div>
+                <h3>Contact Us</h3>
+                <p>Reach us through WhatsApp or call.</p>
+            </div>
+
+            <div class="step" data-reveal>
+                <span>04</span>
+                <div class="step-icon">✓</div>
+                <h3>Get Your Dress</h3>
+                <p>We confirm availability and arrange campus delivery or pickup.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="contact-cta">
+    <div class="container contact-content" data-reveal>
+        <span class="section-label">READY FOR YOUR NEXT LOOK?</span>
+        <h2>Where Beauty Meets Style.</h2>
+        <p>Explore the collection and let's find something beautiful for you.</p>
+
+        <div class="cta-buttons">
+            <a href="{{ url_for('shop') }}" class="primary-button">
+                Explore Our Collection <span>→</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

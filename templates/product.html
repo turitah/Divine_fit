@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product['name'] }} | Divine Fit{% endblock %}
+
+{% block head_extra %}
+    <meta name="description" content="{{ product['name'] }} - {{ product['price']|money }}. {{ product['status'] }} at Divine Fit.">
+{% endblock %}
+
+{% block content %}
+
+{% set first_size = product['sizes'].split(',')[0] %}
+{% set order_message = "Hello Divine Fit, I am interested in the " ~ product['name'] ~ " (" ~ (product['price']|money) ~ "). My preferred size is " ~ first_size ~ ". Is it available?" %}
+{% set restock_message = "Hello Divine Fit, I would like to ask about the " ~ product['name'] ~ ". Is it coming back in stock?" %}
+{% set status_class = 'yellow' if product['status'] == 'Few Left' else ('red' if product['status'] == 'Sold Out' else '') %}
+
+<section class="product-detail-section">
+    <div class="container">
+
+        <a href="{{ url_for('shop') }}" class="back-link">← Back to Collection</a>
+
+        <div class="product-detail">
+
+            <div class="detail-image" data-reveal
+                 {% if product['image'].startswith('http') %}
+                    style="background-image: url('{{ product['image'] }}');"
+                 {% else %}
+                    style="background-image: url('{{ url_for('static', filename=product['image']) }}');"
+                 {% endif %}>
+
+                {% if product['status'] == 'Sold Out' %}
+                    <span class="badge sold detail-badge">Sold Out</span>
+                {% elif product['status'] == 'Few Left' %}
+                    <span class="badge trending detail-badge">Few Left</span>
+                {% endif %}
+            </div>
+
+            <div class="detail-content" data-reveal>
+
+                <span class="section-label">{{ product['category'] }}</span>
+
+                <h1>{{ product['name'] }}</h1>
+
+                <p class="detail-price">{{ product['price']|money }}</p>
+
+                {% if product['description'] %}
+                    <p class="detail-description">{{ product['description'] }}</p>
+                {% else %}
+                    <p class="detail-description">
+                        Contact us on WhatsApp for more details about this piece.
+                    </p>
+                {% endif %}
+
+                <div class="detail-line">
+                    <strong>Colour</strong>
+                    <span>{{ product['colour'] or 'As shown' }}</span>
+                </div>
+
+                <div class="detail-line detail-sizes">
+                    <strong>Sizes</strong>
+                    <div>
+                        {% for size in product['sizes'].split(',') %}
+                            <span>{{ size }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="detail-status {{ status_class }}">
+                    <i></i> {{ product['status'] }}
+                </div>
+
+                {% if product['status'] == 'Sold Out' %}
+
+                    <div class="soldout-note">
+                        This dress is currently sold out. Message us to ask
+                        about restocks or similar styles.
+                    </div>
+
+                    <div class="order-buttons">
+                        {% for contact in contacts %}
+                            <a class="order-whatsapp"
+                               href="https://wa.me/{{ contact['wa'] }}?text={{ restock_message|whatsapp_text }}"
+                               target="_blank"
+                               rel="noopener">
+                                <span>Ask About Restock</span>
+                                <small>{{ contact['display'] }}</small>
+                            </a>
+                        {% endfor %}
+                    </div>
+
+                {% else %}
+
+                    <label class="order-size-label">Choose your size</label>
+
+                    <div class="size-picker"
+                         id="sizePicker"
+                         data-product="{{ product['name'] }}"
+                         data-price="{{ product['price']|money }}">
+
+                        {% for size in product['sizes'].split(',') %}
+                            <button
+                                type="button"
+                                class="size-choice{% if loop.first %} selected{% endif %}"
+                                data-size="{{ size }}"
+                            >
+                                {{ size }}
+                            </button>
+                        {% endfor %}
+
+                    </div>
+
+                    <div class="order-buttons">
+                        {% for contact in contacts %}
+                            <a class="order-whatsapp js-whatsapp-order"
+                               data-wa="{{ contact['wa'] }}"
+                               href="https://wa.me/{{ contact['wa'] }}?text={{ order_message|whatsapp_text }}"
+                               target="_blank"
+                               rel="noopener">
+                                <span>Order via WhatsApp</span>
+                                <small>{{ contact['display'] }}</small>
+                            </a>
+                        {% endfor %}
+                    </div>
+
+                {% endif %}
+
+                <div class="order-calls">
+                    {% for contact in contacts %}
+                        <a class="order-call" href="tel:{{ contact['tel'] }}">
+                            <span>Call</span>
+                            <small>{{ contact['display'] }}</small>
+                        </a>
+                    {% endfor %}
+                </div>
+
+                <p class="detail-note">
+                    <span>♡</span>
+                    Availability is confirmed by the seller before payment.
+                    Message either WhatsApp line and we will help you choose,
+                    pay and arrange campus delivery or pickup.
+                </p>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if related %}
+<section class="section related-section">
+    <div class="container">
+
+        <div class="section-heading">
+            <div>
+                <span class="section-label">MORE TO LOVE</span>
+                <h2>You May Also Like <span></span></h2>
+            </div>
+            <a href="{{ url_for('shop', category=product['category']) }}" class="text-link">
+                More {{ product['category'] }} →
+            </a>
+        </div>
+
+        <div class="product-grid">
+            {% for item in related %}
+                {% include "_product_card.html" %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% endblock %}

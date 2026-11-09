@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Dress Not Found | Divine Fit{% endblock %}
+
+{% block content %}
+
+<section class="not-found">
+    <div class="container">
+        <span class="not-found-mark">♡</span>
+        <span class="section-label">404</span>
+        <h1>This dress has moved on.</h1>
+        <p>
+            The dress you are looking for may have been sold or removed from
+            the catalogue.
+        </p>
+        <div class="cta-buttons">
+            <a href="{{ url_for('shop') }}" class="primary-button">
+                Browse the Collection
+            </a>
+            <a href="{{ url_for('home') }}" class="outline-button">
+                Back Home
+            </a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

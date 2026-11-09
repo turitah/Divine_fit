@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Divine Fit | Seller Studio{% endblock %}</title>
+
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="Private seller management area for Divine Fit.">
+
+    <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Lato:wght@300;400;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css', v='20261108-4') }}">
+
+    {% block head_extra %}{% endblock %}
+</head>
+
+<body class="admin-body">
+
+{% from "_logo.html" import link as brand_link %}
+
+<div class="admin-shell">
+
+    <aside class="admin-sidebar">
+        {{ brand_link(url_for('manage'), 'ELEGANCE. CONFIDENCE. YOU.') }}
+
+        <span class="admin-sidebar-label">Seller Studio</span>
+
+        <nav class="admin-nav" aria-label="Seller navigation">
+            <a href="{{ url_for('manage') }}" class="{% if request.endpoint == 'manage' %}active{% endif %}">
+                Dashboard
+            </a>
+            <a href="{{ url_for('manage') }}#add-dress">
+                Add New Dress
+            </a>
+            <a href="{{ url_for('shop') }}">
+                View Public Shop
+            </a>
+            <a href="{{ url_for('manage_access') }}" class="{% if request.endpoint == 'manage_access' %}active{% endif %}">
+                Seller Access QR
+            </a>
+            <a href="{{ url_for('qr_code') }}">
+                Shop QR Code
+            </a>
+            <form action="{{ url_for('logout') }}" method="POST">
+                <button type="submit" class="admin-signout">Sign Out</button>
+            </form>
+        </nav>
+
+        <div class="admin-sidebar-footer">
+            <p>This private area is separate from the customer website.</p>
+            <span>Divine Fit · {{ location }}</span>
+        </div>
+    </aside>
+
+    <div class="admin-main">
+
+        <header class="admin-topbar">
+            <div>
+                <span class="admin-kicker">DIVINE FIT · PRIVATE SELLER AREA</span>
+                <h1>{% block admin_page_title %}Seller Dashboard{% endblock %}</h1>
+            </div>
+
+            <div class="admin-topbar-actions">
+                {% block admin_topbar_actions %}
+                    <a href="{{ url_for('shop') }}" class="manage-action-link">View Shop</a>
+                    <a href="{{ url_for('manage_access') }}" class="manage-action-link">Seller QR</a>
+                {% endblock %}
+            </div>
+        </header>
+
+        <main class="admin-content">
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-wrap">
+                        {% for category, message in messages %}
+                            <div class="flash {{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            {% block admin_content %}{% endblock %}
+        </main>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/main.js', v='20261108-4') }}"></script>
+</body>
+</html>

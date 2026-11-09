@@ -1,0 +1,25 @@
+{% macro monogram() -%}
+<span class="brand-monogram" aria-hidden="true">
+    <img src="{{ url_for('static', filename='images/logo-mark.png') }}" alt="" width="194" height="194">
+</span>
+{%- endmacro %}
+
+{% macro lockup(tagline="ELEGANCE. CONFIDENCE. YOU.", class_name="") -%}
+<span class="brand {{ class_name }}">
+    {{ monogram() }}
+    <span class="brand-text">
+        <strong>DIVINE FIT</strong>
+        <small>{{ tagline }}</small>
+    </span>
+</span>
+{%- endmacro %}
+
+{% macro link(href, tagline="ELEGANCE. CONFIDENCE. YOU.", class_name="") -%}
+<a href="{{ href }}" class="brand {{ class_name }}">
+    {{ monogram() }}
+    <span class="brand-text">
+        <strong>DIVINE FIT</strong>
+        <small>{{ tagline }}</small>
+    </span>
+</a>
+{%- endmacro %}

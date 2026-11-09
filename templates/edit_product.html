@@ -1,0 +1,199 @@
+{% extends "base_admin.html" %}
+
+{% block title %}Edit {{ product['name'] }} | Divine Fit{% endblock %}
+
+{% block admin_page_title %}Edit Dress{% endblock %}
+
+{% block admin_topbar_actions %}
+    <a href="{{ url_for('manage') }}" class="manage-action-link">← Dashboard</a>
+    <a href="{{ url_for('product', product_id=product['id']) }}" class="manage-action-link">View Dress</a>
+{% endblock %}
+
+{% block admin_content %}
+
+{% set selected_sizes = product['sizes'].split(',') %}
+
+<section class="seller-management">
+
+    <div class="management-header">
+        <div>
+            <span class="section-label">CURRENT PIECE</span>
+            <h1>{{ product['name'] }}</h1>
+            <p>Update the details of this dress. Leave the image empty to keep the current photograph.</p>
+        </div>
+
+        <div class="manage-actions">
+            <a href="{{ url_for('manage') }}" class="manage-action-link">
+                ← Back to Dashboard
+            </a>
+            <a href="{{ url_for('product', product_id=product['id']) }}"
+               class="manage-action-link">
+                View Dress
+            </a>
+        </div>
+    </div>
+
+    <div class="management-card">
+
+        <div class="management-card-header">
+            <h2>Dress Details</h2>
+            <p>All changes appear on the public shop immediately.</p>
+        </div>
+
+        <form
+            action="{{ url_for('edit_product', product_id=product['id']) }}"
+            method="POST"
+            enctype="multipart/form-data"
+            class="dress-upload-form"
+        >
+
+            <div class="form-group">
+                <label for="name">Dress Name *</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value="{{ product['name'] }}"
+                    required
+                >
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    <label for="price">Price (UGX) *</label>
+                    <input
+                        type="number"
+                        id="price"
+                        name="price"
+                        min="0"
+                        value="{{ product['price'] }}"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category *</label>
+                    <select id="category" name="category" required>
+                        {% for category in categories %}
+                            <option value="{{ category }}"
+                                {% if product['category'] == category %}selected{% endif %}>
+                                {{ category }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    <label for="colour">Colour</label>
+                    <input
+                        type="text"
+                        id="colour"
+                        name="colour"
+                        value="{{ product['colour'] or '' }}"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="status">Status *</label>
+                    <select id="status" name="status" required>
+                        {% for status in statuses %}
+                            <option value="{{ status }}"
+                                {% if product['status'] == status %}selected{% endif %}>
+                                {{ status }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Available Sizes *</label>
+
+                <div class="size-checkboxes">
+                    {% for size in sizes %}
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="sizes"
+                                value="{{ size }}"
+                                {% if size in selected_sizes %}checked{% endif %}
+                            >
+                            {{ size }}
+                        </label>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea
+                    id="description"
+                    name="description"
+                    rows="5"
+                >{{ product['description'] or '' }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Replace Image</label>
+
+                <div class="image-upload-area">
+
+                    <div class="current-image-preview">
+                        {% if product['image'].startswith('http') %}
+                            <img src="{{ product['image'] }}" alt="{{ product['name'] }}">
+                        {% else %}
+                            <img src="{{ url_for('static', filename=product['image']) }}" alt="{{ product['name'] }}">
+                        {% endif %}
+                    </div>
+
+                    <input
+                        type="file"
+                        id="image"
+                        name="image"
+                        accept=".jpg,.jpeg,.png,.webp"
+                    >
+                    <p>
+                        Choose a new JPG, PNG or WEBP image to replace the
+                        current photograph. On your phone you can take a
+                        new photo or pick one from your gallery.
+                    </p>
+                </div>
+            </div>
+
+            <label class="feature-check">
+                <input
+                    type="checkbox"
+                    name="featured"
+                    value="1"
+                    {% if product['featured'] %}checked{% endif %}
+                >
+                <span>
+                    <strong>Feature on homepage</strong>
+                    <small>Featured pieces appear in the Featured section only.</small>
+                </span>
+            </label>
+
+            <div class="form-actions">
+                <button type="submit" class="upload-dress-button">
+                    Save Changes
+                </button>
+                <a href="{{ url_for('manage') }}" class="cancel-button">
+                    Cancel
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,245 @@
+{% extends "base.html" %}
+
+{% block title %}Divine Fit | Elegance. Confidence. You.{% endblock %}
+
+{% block content %}
+
+<section class="hero-showcase">
+    <a href="{{ url_for('shop') }}" class="hero-showcase-link" aria-label="Explore the Divine Fit collection">
+        <img
+            src="{{ url_for('static', filename='images/divine-fit-hero.png') }}"
+            alt="Divine Fit — Elegance in Every Detail. Discover beautiful styles that celebrate your confidence, personality and individuality."
+            width="1536"
+            height="1024"
+            fetchpriority="high"
+        >
+    </a>
+</section>
+
+<section class="benefits" data-reveal>
+    <div class="container benefits-grid">
+
+        <div class="benefit">
+            <span class="benefit-index">01</span>
+            <div>
+                <strong>Beauty</strong>
+                <small>Timeless style with thoughtful details.</small>
+            </div>
+        </div>
+
+        <div class="benefit">
+            <span class="benefit-index">02</span>
+            <div>
+                <strong>Elegance</strong>
+                <small>Refined silhouettes for every occasion.</small>
+            </div>
+        </div>
+
+        <div class="benefit">
+            <span class="benefit-index">03</span>
+            <div>
+                <strong>Confidence</strong>
+                <small>Pieces that make you feel beautifully you.</small>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="section categories-section" id="categories">
+    <div class="container">
+
+        <div class="section-heading" data-reveal>
+            <div>
+                <span class="section-label">THE COLLECTION</span>
+                <h2>Discover styles for every side of you. <span></span></h2>
+                <p>A style for every moment, thoughtfully chosen for you.</p>
+            </div>
+            <a href="{{ url_for('shop') }}" class="text-link">View all →</a>
+        </div>
+
+        <a href="{{ url_for('shop') }}" class="category-banner" data-reveal>
+            <img
+                src="{{ url_for('static', filename='images/divine-collection-banner.png') }}"
+                alt="The Divine Collection — styles for every side of you"
+                loading="lazy"
+            >
+        </a>
+    </div>
+</section>
+
+{% if featured %}
+<section class="section featured-section">
+    <div class="container">
+
+        <div class="section-heading" data-reveal>
+            <div>
+                <span class="section-label">FEATURED</span>
+                <h2>Featured Pieces. <span></span></h2>
+                <p>Our hand-picked favourites, chosen to celebrate you.</p>
+            </div>
+            <a href="{{ url_for('shop') }}" class="text-link">View all →</a>
+        </div>
+
+        <div class="product-grid" data-reveal>
+            {% for item in featured %}
+                {% include "_product_card.html" %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<section class="section arrivals-section">
+    <div class="container">
+
+        <div class="section-heading" data-reveal>
+            <div>
+                <span class="section-label">JUST IN</span>
+                <h2>A Little Something New. <span></span></h2>
+                <p>Beautiful styles, fresh inspiration and pieces worth falling in love with.</p>
+            </div>
+            <a href="{{ url_for('shop') }}" class="text-link">View all →</a>
+        </div>
+
+        {% if latest %}
+        <div class="product-grid" data-reveal>
+            {% for item in latest %}
+                {% include "_product_card.html" %}
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state" data-reveal>
+            <div>✦</div>
+            <h2>Something Beautiful Is Coming.</h2>
+            <p>
+                New styles are on their way. Stay connected with Divine Fit
+                and be the first to discover our latest collection.
+            </p>
+            <a href="{{ url_for('shop') }}" class="outline-button">
+                Explore Our Collections
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<section class="brand-intro-section">
+    <div class="container brand-intro-grid">
+
+        <figure class="brand-intro-photo" data-reveal>
+            <img
+                src="{{ url_for('static', filename='images/divine-fit-philosophy.jpg') }}"
+                alt="Divine Fit philosophy — fashion that feels like you"
+                loading="lazy"
+                width="1000"
+                height="1250"
+            >
+            <figcaption>
+                <span>Beautifully You.</span>
+            </figcaption>
+        </figure>
+
+        <div class="brand-intro-copy" data-reveal>
+            <span class="section-label">THE DIVINE FIT PHILOSOPHY</span>
+            <h2>Fashion That Feels <em>Like You.</em></h2>
+
+            <p>
+                At Divine Fit, we believe beauty is found in confidence,
+                individuality and the little details that make you unique.
+                Our collections are thoughtfully presented for the modern
+                woman who loves to express herself through fashion.
+            </p>
+
+            <p>
+                Your style tells your story. Discover beautiful dresses that
+                bring out your confidence and make every moment special.
+            </p>
+
+            <div class="brand-intro-note">
+                <span>Wear Your Confidence.</span>
+                <span>Your Style. Your Story.</span>
+            </div>
+
+            <a href="{{ url_for('shop') }}" class="outline-button">
+                Explore the Collection →
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="about-section" id="about">
+    <div class="container about-grid">
+
+        <div class="about-copy" data-reveal>
+            <span class="section-label">ABOUT DIVINE FIT</span>
+            <h2>More Than Fashion. <em>It's Your Expression.</em></h2>
+
+            <p>
+                Divine Fit is about celebrating personal style, embracing
+                confidence and making elegance part of everyday life. We bring
+                you beautiful fashion choices for campus, special occasions
+                and every moment in between.
+            </p>
+
+            <div class="about-signature">
+                <strong>Proudly based in {{ location }}</strong>
+                <span>Hand-picked with love. Served with a real conversation.</span>
+            </div>
+
+            <a href="{{ url_for('about') }}" class="outline-button">
+                Discover Our Story →
+            </a>
+        </div>
+
+        <figure class="about-photo about-photo--natural" data-reveal>
+            <img
+                src="{{ url_for('static', filename='images/about-divine-fit.jpg') }}"
+                alt="Divine Fit — elegance, confidence and personal style"
+                loading="lazy"
+                width="1512"
+                height="1040"
+            >
+            <figcaption class="about-photo-card">
+                <span class="about-photo-script">Elegance made effortless.</span>
+                <p>Every body. Every budget. Every beautiful moment.</p>
+            </figcaption>
+        </figure>
+
+    </div>
+</section>
+
+<section class="contact-cta" id="contact">
+    <div class="container contact-content" data-reveal>
+        <span class="section-label">LET'S TALK</span>
+        <h2>Let's Stay Connected.</h2>
+        <p>
+            Found something you love? We would be delighted to hear from you.
+            Reach out to us and let's help you find your perfect style.
+        </p>
+
+        <div class="cta-buttons">
+            <a href="{{ url_for('shop') }}" class="primary-button">
+                Explore Our Collection <span>→</span>
+            </a>
+            <a href="{{ url_for('contact') }}" class="outline-button">
+                Contact Divine Fit
+            </a>
+        </div>
+
+        <div class="contact-cards">
+            {% for contact in contacts %}
+                <div class="contact-card">
+                    <span>WhatsApp &amp; Calls</span>
+                    <strong>{{ contact['display'] }}</strong>
+                    <div class="contact-card-links">
+                        <a href="https://wa.me/{{ contact['wa'] }}" target="_blank" rel="noopener">WhatsApp →</a>
+                        <a href="tel:{{ contact['tel'] }}">Call →</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

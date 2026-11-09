@@ -1,0 +1,153 @@
+{% extends "base_admin.html" %}
+
+{% block title %}Seller QR Access | Divine Fit{% endblock %}
+
+{% block admin_page_title %}Seller Access QR{% endblock %}
+
+{% block admin_topbar_actions %}
+    <a href="{{ url_for('manage') }}" class="manage-action-link">← Dashboard</a>
+    <a href="{{ url_for('qr_code') }}" class="manage-action-link">Shop QR</a>
+{% endblock %}
+
+{% block admin_content %}
+
+<section class="qr-page">
+
+    <div class="management-header">
+
+        <div>
+            <span class="section-label">PRIVATE AREA</span>
+            <h1>Scan. Sign in. Manage.</h1>
+            <p>
+                Scan this code with your phone to open the dashboard
+                instantly — no password to type.
+            </p>
+        </div>
+
+        <div class="manage-actions">
+            <a href="{{ url_for('manage') }}" class="manage-action-link">
+                ← Back to Dashboard
+            </a>
+            <a href="{{ url_for('qr_code') }}" class="manage-action-link">
+                Shop QR
+            </a>
+        </div>
+
+    </div>
+
+    <div class="qr-grid">
+
+        <div class="qr-card">
+
+            {% if error %}
+
+                <div class="qr-error">
+                    <span>♡</span>
+                    <p>{{ error }}</p>
+                </div>
+
+            {% else %}
+
+                <div class="qr-image">
+                    {{ qr_svg|safe }}
+                </div>
+
+                <div class="qr-brand">
+                    <img class="brand-mark" src="{{ url_for('static', filename='images/logo-mark.png') }}" alt="Divine Fit monogram" width="40" height="40">
+                    <span>
+                        <strong>Divine Fit</strong>
+                        <small>SELLER ACCESS</small>
+                    </span>
+                </div>
+
+                <p class="qr-target">{{ target }}</p>
+
+                <div class="qr-actions">
+                    <a href="{{ url_for('manage_access_download') }}" class="primary-button">
+                        Download QR
+                    </a>
+                    <button type="button" class="outline-button" onclick="window.print()">
+                        Print
+                    </button>
+                </div>
+
+                <form
+                    action="{{ url_for('rotate_access') }}"
+                    method="POST"
+                    class="rotate-form"
+                    onsubmit="return confirm('Generate a new seller QR? The current code will stop working immediately.');"
+                >
+                    <button type="submit" class="outline-button rotate-button">
+                        Generate New QR
+                    </button>
+                </form>
+
+            {% endif %}
+
+        </div>
+
+        <div class="qr-info">
+
+            <span class="section-label">KEEP IT PRIVATE</span>
+            <h2>Your key to the shop.</h2>
+
+            <div class="qr-steps">
+
+                <div class="qr-step">
+                    <span>01</span>
+                    <div>
+                        <strong>Save or print it</strong>
+                        <p>
+                            Keep the code on your phone, in your wallet or
+                            on the shop counter.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="qr-step">
+                    <span>02</span>
+                    <div>
+                        <strong>Scan to sign in</strong>
+                        <p>
+                            Open your camera, scan the code, and the
+                            dashboard opens on your phone.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="qr-step">
+                    <span>03</span>
+                    <div>
+                        <strong>Replace it any time</strong>
+                        <p>
+                            If the code is shared or lost, generate a new
+                            one. The old code stops working immediately.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="qr-tip warn">
+                <strong>Treat this like the key to your shop.</strong>
+                Anyone who scans it can manage your dresses. Do not post
+                it publicly. If it leaks, press
+                <em>Generate New QR</em>.
+            </div>
+
+            {% if 'localhost' in target or '127.0.0.1' in target %}
+                <div class="qr-tip warn">
+                    <strong>This is a local address.</strong>
+                    The code will only work on this computer until the shop
+                    is online, or until you set the
+                    <code>DIVINE_FIT_SITE_URL</code> environment variable.
+                </div>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

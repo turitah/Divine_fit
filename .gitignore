@@ -2,5 +2,8 @@ venv/
 __pycache__/
 *.pyc
 .env
-instance/
-uploads/
+instance/*.db
+instance/seller_access_token.txt
+instance/secret_key.txt
+static/uploads/*
+!static/uploads/.gitkeep

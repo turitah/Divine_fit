@@ -1,0 +1,46 @@
+<article class="product-card">
+
+    <a href="{{ url_for('product', product_id=item['id']) }}" class="product-image-link">
+        <div class="product-image"
+             {% if item['image'].startswith('http') %}
+             style="background-image: url('{{ item['image'] }}');"
+             {% else %}
+             style="background-image: url('{{ url_for('static', filename=item['image']) }}');"
+             {% endif %}>
+
+            {% if item['status'] == 'Sold Out' %}
+                <span class="badge sold">Sold Out</span>
+            {% elif item['status'] == 'Few Left' %}
+                <span class="badge trending">Few Left</span>
+            {% elif item['is_new'] %}
+                <span class="badge">New</span>
+            {% endif %}
+
+        </div>
+    </a>
+
+    <div class="product-info">
+        <span class="product-category">{{ item['category'] }}</span>
+        <h3>{{ item['name'] }}</h3>
+        <strong>{{ item['price']|money }}</strong>
+
+        {% if item['description'] %}
+            <p class="product-excerpt">{{ item['description']|truncate(96, true, '…') }}</p>
+        {% endif %}
+
+        <div class="sizes">
+            {% for size in item['sizes'].split(',') %}
+                <span>{{ size }}</span>
+            {% endfor %}
+        </div>
+
+        <div class="product-card-footer">
+            <p class="availability {% if item['status'] == 'Few Left' %}few{% elif item['status'] == 'Sold Out' %}sold{% else %}available{% endif %}">
+                <i></i> {{ item['status'] }}
+            </p>
+            <a href="{{ url_for('product', product_id=item['id']) }}" class="product-view">
+                View Details
+            </a>
+        </div>
+    </div>
+</article>
